@@ -2,6 +2,8 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import handle from 'hono-react-router-adapter/node';
 
+// import { reactRouter } from 'hono-react-router-adapter/middleware';
+// import { defaultGetLoadContext } from 'hono-react-router-adapter/react-router';
 import server from './build/server/hono/server/router.js';
 import * as build from './build/server/index.js';
 
@@ -21,5 +23,15 @@ server.use(
 );
 
 const app = handle(build, server);
+
+// const app = new Hono();
+// app.route('/', server);
+// app.use(async (c, next) => {
+//   return reactRouter({
+//     build: build,
+//     mode: 'production',
+//     getLoadContext: defaultGetLoadContext,
+//   })(c, next)
+// })
 
 export default app;
