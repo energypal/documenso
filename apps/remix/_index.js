@@ -2,23 +2,14 @@ import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import handle from 'hono-react-router-adapter/node';
 
-import server from './build/server/hono/server/router.js';
-import * as build from './build/server/index.js';
+import server from '../server/hono/server/router.js';
+import * as build from '../server/index.js';
 
-console.log('app.js');
-
-console.log('importing server');
-
-console.log('importing build');
-
-console.log('importing build done');
-
-console.log('using server');
 server.use(
   serveStatic({
-    root: 'build/client',
+    root: '.',
     onFound: (path, c) => {
-      if (path.startsWith('./build/client/assets')) {
+      if (path.startsWith('./assets')) {
         // Hard cache assets with hashed file names.
         c.header('Cache-Control', 'public, immutable, max-age=31536000');
       } else {
@@ -28,8 +19,7 @@ server.use(
     },
   }),
 );
-console.log('server used');
+
 const app = handle(build, server);
-console.log('app created');
+
 export default app;
-console.log('app exported');
