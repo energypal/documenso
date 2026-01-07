@@ -28,6 +28,9 @@ npm run build:server
 # Copy over the entry point for the server.
 cp server/main.js build/server/main.js
 
+# Copy over all the assets to the public directory.
+cp -r build/client/assets public/assets
+
 # Copy over all web.js translations
 cp -r ../../packages/lib/translations build/server/hono/packages/lib/translations
 
